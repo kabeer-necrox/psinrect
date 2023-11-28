@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import './App.css';
 
 function App() {
@@ -17,8 +17,13 @@ function App() {
       pass += str.charAt(char);
     }
     setPassword(pass);
+
   }, [length, numberAllowed, charAllowed]);
 
+
+  useEffect(()=>{
+    passwordGenerator()
+  }, [length, numberAllowed,charAllowed,passwordGenerator])
   return (
     <div className="App">
       <div className='w-full mx-w-md mx-auto mx-auto shadow-md-rounded-lg px-4 my-8 text-orange-500 bg-gray-800'> 
@@ -39,6 +44,29 @@ function App() {
 
           />
           <label>length:{length}</label>
+         </div>
+         <div className='flex items-center gap-x-1'>
+          <input type='checkbox' 
+           defaultChecked={numberAllowed}
+           id='numberInput'
+           onChange={()=>{
+            setNumberAllowed((prev) =>!prev)
+           }}
+          />
+          <label>Numbers</label>
+          
+         </div>
+         {/* this is the comment */}
+         <div className='flex items-center gap-x-1'>
+          <input type='checkbox' 
+           defaultChecked={numberAllowed}
+           id='numberInput'
+           onChange={()=>{
+            setCharAllowed((prev) =>!prev)
+           }}
+          />
+          
+          <label>Character</label>
          </div>
       </div>
     </div>
